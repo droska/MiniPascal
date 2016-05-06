@@ -1,0 +1,61 @@
+programa -> PROGRAM ID; lista-declaraciones sent-comp
+
+lista-declaraciones -> lista-declaraciones declaracion | 
+                       declaracion
+
+declaracion -> declaracion-variables | 
+               declaracion-funcion   | 
+               declaracion-procedure
+
+declaracion-variables -> VAR lista-variables : tipo;
+
+lista-variables -> dcv, lista-variables | dcv
+ 
+dcv -> ID
+
+declaracion-array -> ID = ARRAY [NUM..NUM] OF tipo ;
+
+declaracion-funcion -> FUNCTION tipo ID (param : tipo);
+
+declaracion-procedure -> PROCEDURE ID (param : tipo);
+
+param -> lista-parametros
+
+lista-parametros -> lista-parametros, parametro | 
+                    parametro
+
+parametro -> ID
+
+tipo -> INTEGER | 
+        BOOLEAN
+
+sent-comp -> BEGIN lista-sent END
+
+lista-sent -> lista-sent sent | sent
+
+sent -> exp | sent-comp | if_stmt | while_stmt | for_stmt | until_stmt | return_stmt
+
+
+
+
+exp -> assign_stmt | simple_exp
+
+simple_exp -> op_simp | term | comparacion
+
+op_simp -> op_simp op_sum term| term
+
+op_sum -> PLUS | MINUS
+
+term -> term op_mult factor | factor
+
+op_mult -> TIMES | OVER
+
+factor -> ( exp ) | ID | NUM
+
+comparacion -> simple_exp op_comparacion simple_exp
+
+op_comparacion -> LT | LTE | RT | RTE | DIF | EQ
+
+if_stmt -> IF ( bool_exp ) THEN sent END | IF ( bool_exp ) THEN sent ELSE sent END ;
+
+bool_exp -> TRUE | FALSE
